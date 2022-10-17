@@ -34,8 +34,8 @@ const UserSchema = new mongoose.Schema({
      },
     role:{
         type:String,
-        enum:['user'],
-        default:'user'
+        enum:['user','Hrmanager'],
+        default:'Hrmanager'
     },
     confirmationToken:String
 },{
