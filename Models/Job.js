@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const {ObjectId} = mongoose.Schema.Types;
 const JobSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -46,6 +47,24 @@ const JobSchema = new mongoose.Schema({
         required: [true, 'Please add a sallery'],
         min: [1000, 'Sallery can not be less than $1000'],
     },
+    deadLine:{
+        type: Date,
+        required: [true, 'Please add a deadLine'],
+        default: Date.now() + 7*24*60*60*1000,
+    },
+    Vacancy:{
+        type: Number,
+        required: [true, 'Please add a vacancy'],
+        min: [1, 'Vacancy can not be less than 1'],
+    },
+    HrManagerid:{
+        type:ObjectId,
+        ref:"HrManager",
+        required:[true,'Please add Your id']
+    }
+
 },{
     timestamps: true
 })
+const Job = mongoose.model('Job', JobSchema);
+module.exports = Job;
