@@ -1,5 +1,5 @@
-const { CreateJobServices, jobWithHrIdServices,jobWithIdServices,updatejobWithIdServices, getAllJobsServices } = require("../Services/job.services");
-
+const { CreateJobServices, jobWithHrIdServices,jobWithIdServices,updatejobWithIdServices, getAllJobsServices,jobWithHrIdServicesinfo} = require("../Services/job.services");
+// ----------create job with hr id
 module.exports.CreateJobContoler=async(req,res)=>{
     try {
         const job = await CreateJobServices(req.body);
@@ -18,6 +18,7 @@ module.exports.CreateJobContoler=async(req,res)=>{
         })
     }
 }
+// -------------get job with hr id
 module.exports.jobWithHrId = async (req, res) => {
     try {
         const jobs = await jobWithHrIdServices(req.hrId);
@@ -34,6 +35,7 @@ module.exports.jobWithHrId = async (req, res) => {
         })
     }
 }
+// ------------get job with id
 module.exports.jobWithId = async (req, res) => {
     try {
         const job = await jobWithIdServices(req.hrId, req.params.id);
@@ -50,6 +52,7 @@ module.exports.jobWithId = async (req, res) => {
         })
     }
 }
+// -------------->>>>>Update job with id
 module.exports.updatejobWithId = async (req, res) => {
     try {
         const job = await updatejobWithIdServices(req.params.id,req.hrId,req.body);
@@ -66,7 +69,8 @@ module.exports.updatejobWithId = async (req, res) => {
         })
     }
 }
-// -----api http://localhost:5000/job?address=Rangpur-Bangladesh&postition=Fullstack-Developer&sallery[lt]=10000
+// -------------->>>>>Update job with id
+// ----->>>api http://localhost:5000/job?address=Rangpur-Bangladesh&postition=Fullstack-Developer&sallery[lt]=10000
 // ------------>>>>>>Get All Jobs with sort and filter
 module.exports.getAlljobs = async (req, res) => {
     try {
@@ -103,3 +107,22 @@ if(req.query.fields){
     }
 }
 // ------------>>>>>>Get All Jobs with sort and filter
+
+// ----------get job with hr info
+module.exports.getJobWithHrInfo = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const jobs = await jobWithHrIdServicesinfo(id);
+        res.status(201).json({
+            status: 'success',
+            data: {
+                jobs
+            }
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: error
+        })
+    }
+}

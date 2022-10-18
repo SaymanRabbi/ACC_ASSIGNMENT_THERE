@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const {ObjectId} = mongoose.Schema.Types;
 const JobSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -56,8 +55,8 @@ const JobSchema = new mongoose.Schema({
         min: [1, 'Vacancy can not be less than 1'],
     },
     HrManagerid:{
-        type:ObjectId,
-        ref:"HrManager"
+        type:mongoose.Types.ObjectId,
+        ref:"User"
     }
 
 },{

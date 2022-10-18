@@ -28,3 +28,9 @@ module.exports.getAllJobsServices = async (queryObj,queris) => {
     return jobs
 }
 // -------------------->>>>>>>>Get All Jobs with sort and filter <<<<<<<<<<<<<<<<<<<<------------------
+// ---------get job with hr info
+module.exports.jobWithHrIdServicesinfo = async (id) => {
+    const job = await Job.findById(id).populate('HrManagerid').sort('-token');
+    return job
+}
+// ---------get job with hr info
