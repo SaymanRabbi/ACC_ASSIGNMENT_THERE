@@ -7,3 +7,10 @@ module.exports.jobWithHrIdServices = async (hrId) => {
     const jobs = await Job.find({ HrManagerid: hrId });
     return jobs
 }
+module.exports.jobWithIdServices = async (hrId, id) => {
+    const job = await Job.findOne({ $and: [{ _id: id },{ HrManagerid: hrId }] });
+    if(!job){
+        throw new Error('job not found')
+    }
+    return job
+}

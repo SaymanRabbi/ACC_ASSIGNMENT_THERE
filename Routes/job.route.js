@@ -1,5 +1,5 @@
 const express = require('express');
-const { CreateJobContoler,jobWithHrId } = require('../Controller/job.contoler');
+const { CreateJobContoler,jobWithHrId,jobWithId } = require('../Controller/job.contoler');
 const { authorization } = require('../Middleware/authorization');
 const router= express.Router();
 const verifyToken = require('../Middleware/verifyToken');
@@ -7,5 +7,7 @@ const verifyToken = require('../Middleware/verifyToken');
 router.post('/',verifyToken,authorization('Hrmanager','admin'),CreateJobContoler)
 // --------get job with hrmanager id
 router.get('/hrId',verifyToken,authorization('Hrmanager','admin'),jobWithHrId)
+// ----------get job hrmanager id and job id
+router.get('/hrId/:id',verifyToken,authorization('Hrmanager','admin'),jobWithId)
 
 module.exports = router;
