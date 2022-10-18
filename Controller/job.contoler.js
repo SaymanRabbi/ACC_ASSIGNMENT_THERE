@@ -66,22 +66,29 @@ module.exports.updatejobWithId = async (req, res) => {
         })
     }
 }
+// -----api http://localhost:5000/job?address=Rangpur-Bangladesh&postition=Fullstack-Developer&sallery[lt]=10000
 // ------------>>>>>>Get All Jobs with sort and filter
 module.exports.getAlljobs = async (req, res) => {
     try {
-    const queryObj = {...req.query} ;
+    let queryObj = {...req.query} ;
     // -------->>>>Cxlude some fields from query
     const excludeFields = ['page', 'sort', 'limit', 'fields'];
     excludeFields.forEach(el => delete queryObj[el]);
     // -------->>>>Cxlude some fields from query
-
-
-
-
-
-
-
-        const jobs = await getAllJobsServices(queryObj);
+    const filterObj = JSON.stringify(queryObj).replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+    queryObj = JSON.parse(filterObj);
+   const queris={}
+   // -------->>>>sorting
+   if(req.query.sort){
+    const sortBy = req.query.sort.split(',').join(' ');
+    queris.sort=sortBy
+   }
+//--------->>>>>fields
+if(req.query.fields){
+    const fields = req.query.fields.split(',').join(' ');
+    queris.fields=fields
+}
+       const jobs = await getAllJobsServices(queryObj,queris);
         res.status(201).json({
             status: 'success',
             data: {
