@@ -34,16 +34,16 @@ const UserSchema = new mongoose.Schema({
      },
     role:{
         type:String,
-        enum:['user','Hrmanager'],
+        enum:['user','Hrmanager','admin'],
         default:'Hrmanager'
+    },
+    isVerified:{
+        type:Boolean,
+        default:false
     },
     confirmationToken:String
 },{
     timestamps:true
-})
-UserSchema.pre('save', function(next){
-    this.confirmPassword = undefined;
-    next();
 })
 UserSchema.methods.tokenConfirmation = function(){
     const token = crypto.randomBytes(32).toString('hex');
