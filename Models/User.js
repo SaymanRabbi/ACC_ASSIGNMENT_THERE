@@ -41,14 +41,10 @@ const UserSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    confirmationToken:String
+    token:String
 },{
     timestamps:true
 })
-UserSchema.methods.tokenConfirmation = function(){
-    const token = crypto.randomBytes(32).toString('hex');
-    this.confirmationToken = token
-    return token;
-}
+
 const User = mongoose.model('User', UserSchema);
 module.exports = User;

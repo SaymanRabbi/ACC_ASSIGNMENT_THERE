@@ -18,7 +18,6 @@ const JobSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'Please add an email'],
-        unique: true,
         trim: true,
         lowercase: true,
         validate: [validator.isEmail, 'Please add a valid email']
@@ -49,7 +48,6 @@ const JobSchema = new mongoose.Schema({
     },
     deadLine:{
         type: Date,
-        required: [true, 'Please add a deadLine'],
         default: Date.now() + 7*24*60*60*1000,
     },
     Vacancy:{

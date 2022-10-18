@@ -1,4 +1,4 @@
-const { CreateJobServices } = require("../Services/job.services");
+const { CreateJobServices, jobWithHrIdServices } = require("../Services/job.services");
 
 module.exports.CreateJobContoler=async(req,res)=>{
     try {
@@ -9,6 +9,22 @@ module.exports.CreateJobContoler=async(req,res)=>{
             status: 'success',
             data: {
                 job
+            }
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: error
+        })
+    }
+}
+module.exports.jobWithHrId = async (req, res) => {
+    try {
+        const jobs = await jobWithHrIdServices(req.hrId);
+        res.status(201).json({
+            status: 'success',
+            data: {
+                jobs
             }
         })
     } catch (error) {
