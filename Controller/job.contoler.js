@@ -1,4 +1,4 @@
-const { CreateJobServices, jobWithHrIdServices,jobWithIdServices,updatejobWithIdServices } = require("../Services/job.services");
+const { CreateJobServices, jobWithHrIdServices,jobWithIdServices,updatejobWithIdServices, getAllJobsServices } = require("../Services/job.services");
 
 module.exports.CreateJobContoler=async(req,res)=>{
     try {
@@ -66,3 +66,33 @@ module.exports.updatejobWithId = async (req, res) => {
         })
     }
 }
+// ------------>>>>>>Get All Jobs with sort and filter
+module.exports.getAlljobs = async (req, res) => {
+    try {
+    const queryObj = {...req.query} ;
+    // -------->>>>Cxlude some fields from query
+    const excludeFields = ['page', 'sort', 'limit', 'fields'];
+    excludeFields.forEach(el => delete queryObj[el]);
+    // -------->>>>Cxlude some fields from query
+
+
+
+
+
+
+
+        const jobs = await getAllJobsServices(queryObj);
+        res.status(201).json({
+            status: 'success',
+            data: {
+                jobs
+            }
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: error
+        })    
+    }
+}
+// ------------>>>>>>Get All Jobs with sort and filter

@@ -22,3 +22,9 @@ module.exports.updatejobWithIdServices=async(id,hrId,data)=>{
     const job = await Job.updateOne({ _id: id }, data);
     return job
 }
+// -------------------->>>>>>>>Get All Jobs with sort and filter <<<<<<<<<<<<<<<<<<<<------------------
+module.exports.getAllJobsServices = async (queryObj) => {
+    const jobs = await Job.find({queryObj});
+    return jobs
+}
+// -------------------->>>>>>>>Get All Jobs with sort and filter <<<<<<<<<<<<<<<<<<<<------------------
