@@ -59,8 +59,7 @@ const JobSchema = new mongoose.Schema({
     },
     HrManagerid:{
         type:ObjectId,
-        ref:"HrManager",
-        required:[true,'Please add Your id']
+        ref:"HrManager"
     }
 
 },{

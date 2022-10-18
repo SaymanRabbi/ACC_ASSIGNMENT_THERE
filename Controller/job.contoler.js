@@ -3,6 +3,8 @@ const { CreateJobServices } = require("../Services/job.services");
 module.exports.CreateJobContoler=async(req,res)=>{
     try {
         const job = await CreateJobServices(req.body);
+        job.HrManagerid = req.hrId;
+        await job.save();
         res.status(201).json({
             status: 'success',
             data: {

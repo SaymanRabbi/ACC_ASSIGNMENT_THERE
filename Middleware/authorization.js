@@ -7,6 +7,8 @@ module.exports.authorization=(...role)=>{
              message:"You are not authorized to access this route"
          })
      }
+    //  console.log(req.userData);
+     req.hrId = req.userData._id
      next();
  
     }

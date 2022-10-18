@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
     role:{
         type:String,
         enum:['user','Hrmanager','admin'],
-        default:'Hrmanager'
+        default:'user'
     },
     isVerified:{
         type:Boolean,
