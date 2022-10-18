@@ -14,3 +14,11 @@ module.exports.jobWithIdServices = async (hrId, id) => {
     }
     return job
 }
+module.exports.updatejobWithIdServices=async(id,hrId,data)=>{
+    const find = await Job.findOne({ $and: [{ _id: id },{ HrManagerid: hrId }] });
+    if(!find){
+        throw new Error('job not found')
+    }
+    const job = await Job.updateOne({ _id: id }, data);
+    return job
+}

@@ -1,5 +1,5 @@
 const express = require('express');
-const { CreateJobContoler,jobWithHrId,jobWithId } = require('../Controller/job.contoler');
+const { CreateJobContoler,jobWithHrId,jobWithId,updatejobWithId } = require('../Controller/job.contoler');
 const { authorization } = require('../Middleware/authorization');
 const router= express.Router();
 const verifyToken = require('../Middleware/verifyToken');
@@ -9,5 +9,7 @@ router.post('/',verifyToken,authorization('Hrmanager','admin'),CreateJobContoler
 router.get('/hrId',verifyToken,authorization('Hrmanager','admin'),jobWithHrId)
 // ----------get job hrmanager id and job id
 router.get('/hrId/:id',verifyToken,authorization('Hrmanager','admin'),jobWithId)
+//----------->update job with id
+router.patch("/:id",verifyToken,authorization('Hrmanager','admin'),updatejobWithId)
 
 module.exports = router;
