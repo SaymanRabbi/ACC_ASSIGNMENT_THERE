@@ -13,6 +13,7 @@ router.get('/hrId/:id',verifyToken,authorization('Hrmanager','admin'),jobWithId)
 router.patch("/:id",verifyToken,authorization('Hrmanager','admin'),updatejobWithId)
 //----------->get all jobs with sort and filter
 router.get('/',getAlljobs)
+// ----------->get job with hrmanager info
 router.get('/:id',getJobWithHrInfo)
 
 module.exports = router;

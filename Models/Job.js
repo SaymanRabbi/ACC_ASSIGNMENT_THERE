@@ -57,7 +57,19 @@ const JobSchema = new mongoose.Schema({
     HrManagerid:{
         type:mongoose.Types.ObjectId,
         ref:"User"
-    }
+    },
+    appliedCandidates: [
+        {
+          candidate: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+          },
+          candidateInfo: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "AppliedJob",
+          },
+        },
+      ],
 
 },{
     timestamps: true

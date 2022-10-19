@@ -30,7 +30,7 @@ module.exports.getAllJobsServices = async (queryObj,queris) => {
 // -------------------->>>>>>>>Get All Jobs with sort and filter <<<<<<<<<<<<<<<<<<<<------------------
 // ---------get job with hr info
 module.exports.jobWithHrIdServicesinfo = async (id) => {
-    const job = await Job.findById(id).populate('HrManagerid').sort('-token');
+    const job = await Job.findById(id).populate('HrManagerid','-token -password -_id -isVerified');
     return job
 }
 // ---------get job with hr info

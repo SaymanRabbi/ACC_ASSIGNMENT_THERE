@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const {ObjectId} = mongoose.Schema.Types;
-const crypto = require('crypto')
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,

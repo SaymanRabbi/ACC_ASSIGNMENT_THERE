@@ -109,6 +109,7 @@ if(req.query.fields){
 // ------------>>>>>>Get All Jobs with sort and filter
 
 // ----------get job with hr info
+// http://localhost:5000/job/634e25d0814b3565ab7594ea
 module.exports.getJobWithHrInfo = async (req, res) => {
     try {
         const {id} = req.params;
