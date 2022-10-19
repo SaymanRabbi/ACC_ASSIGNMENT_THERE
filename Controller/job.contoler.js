@@ -220,3 +220,21 @@ module.exports.getsalary= async(req,res)=>{
         })
     }
 }
+
+module.exports.getmostapply= async(req,res)=>{
+    try {
+        const jobs = await Job.find().sort({appliedCandidates:-1}).select('-HrManagerid');
+        res.status(201).json({
+            status: 'success',
+            data: {
+                jobs
+            }
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: error
+        })
+    }
+}
+       
