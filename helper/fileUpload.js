@@ -36,8 +36,7 @@
         
 //     }
 // }
-const multer = require('multer');
-const path = require('path');
+
 
 const uploader = multer({
     dst:'uploads/',
