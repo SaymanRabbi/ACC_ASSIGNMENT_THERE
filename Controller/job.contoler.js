@@ -1,4 +1,4 @@
-const { CreateJobServices, jobWithHrIdServices,jobWithIdServices,updatejobWithIdServices, getAllJobsServices,jobWithHrIdServicesinfo,findJobWithId,findUserWithId} = require("../Services/job.services");
+const { CreateJobServices, jobWithHrIdServices,jobWithIdServices,updatejobWithIdServices, getAllJobsServices,jobWithHrIdServicesinfo,findJobWithId,findUserWithId,saveAppliedCandidateInfoService,applyJobService} = require("../Services/job.services");
 const Job = require("../Models/job");
 // ----------create job with hr id
 module.exports.CreateJobContoler=async(req,res)=>{
@@ -130,18 +130,20 @@ module.exports.getJobWithHrInfo = async (req, res) => {
 }
 // apply job 
 module.exports.applyJobControler = async (req, res) => {
-    const {id} = req.params;
-    const {jobId,userId,resume,coverLetter} = req.body
-    if(!jobId || !userId || !resume || !coverLetter){
+    const _id = req.params.id;
+    const {resume,coverLetter} = req.body
+    if( !resume || !coverLetter){
         return res.status(400).json({
             status: 'fail',
             message: 'Please Provide all fields'
         })
     }
     try {
-        const candidateId = req._id;
-        const job = await findJobWithId(id)
-        const user = await findUserWithId(candidateId)
+        const candidate = req._id;
+        const job = await findJobWithId(_id)
+        console.log(job);
+        const user = await findUserWithId(candidate)
+        console.log(user);
         if(!job){
             return res.status(400).json({
                 status: 'fail',
