@@ -127,3 +127,8 @@ module.exports.getJobWithHrInfo = async (req, res) => {
         })
     }
 }
+// apply job 
+module.exports.applyJob = async (req, res) => {
+    const {id} = req.params;
+    const {} = req.body
+}

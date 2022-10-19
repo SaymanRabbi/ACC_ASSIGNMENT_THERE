@@ -1,6 +1,7 @@
 const express = require('express');
-const { CreateJobContoler,jobWithHrId,jobWithId,updatejobWithId,getAlljobs,getJobWithHrInfo } = require('../Controller/job.contoler');
+const { CreateJobContoler,jobWithHrId,jobWithId,updatejobWithId,getAlljobs,getJobWithHrInfo,applyJobControler } = require('../Controller/job.contoler');
 const { authorization } = require('../Middleware/authorization');
+const { verifyCandidate } = require('../Middleware/candidate');
 const router= express.Router();
 const verifyToken = require('../Middleware/verifyToken');
 // Importing the controller
@@ -15,5 +16,6 @@ router.patch("/:id",verifyToken,authorization('Hrmanager','admin'),updatejobWith
 router.get('/',getAlljobs)
 // ----------->get job with hrmanager info
 router.get('/:id',getJobWithHrInfo)
-
+// apply job with verify candidate
+router.post('/:id/apply',verifyToken,verifyCandidate,applyJobControler)
 module.exports = router;
