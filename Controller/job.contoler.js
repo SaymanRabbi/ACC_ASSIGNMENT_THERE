@@ -1,5 +1,5 @@
 const { CreateJobServices, jobWithHrIdServices,jobWithIdServices,updatejobWithIdServices, getAllJobsServices,jobWithHrIdServicesinfo,findJobWithId,findUserWithId,saveAppliedCandidateInfoService,applyJobService} = require("../Services/job.services");
-const Job = require("../Models/job");
+const Job = require("../Models/Job.model");
 // ----------create job with hr id
 module.exports.CreateJobContoler=async(req,res)=>{
     try {

@@ -1,5 +1,5 @@
-const Job = require('../Models/job');
 const User = require('../Models/User');
+const Job= require('../Models/Job.model');
 const AppliedJob = require("../Models/AppliedJob");
 module.exports.CreateJobServices=async(data)=>{
     const job = await Job.create(data);

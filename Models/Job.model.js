@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const JobSchema = new mongoose.Schema({
+const JobSchema =  mongoose.Schema({
     title: {
         type: String,
         required: [true, 'Please add a title'],
@@ -74,5 +74,5 @@ const JobSchema = new mongoose.Schema({
 },{
     timestamps: true
 })
-const Job = mongoose.model('Job', JobSchema);
-module.exports = Job;
+const JobSchma = mongoose.model('Job', JobSchema);
+module.exports = JobSchma;
