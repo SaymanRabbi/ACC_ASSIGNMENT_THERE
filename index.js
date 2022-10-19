@@ -6,6 +6,7 @@ const dbConnection = require('./server');
 const port = process.env.PORT || 5000;
 const user = require('./Routes/user.route');
 const job = require('./Routes/job.route');
+const admin = require('./Routes/admin.route');
 const ErrorHandeler = require('./helper/Error.handeler');
 // Middleware
 app.use(cors());
@@ -13,6 +14,7 @@ app.use(express.json());
 //------------------->>>>Create Route Here<<<<-------------------
 app.use('/api/v1/user',user)
 app.use('/api/v1/job',job)
+app.use('/api/v1/admin',admin)
 //------------------->>>>Create Route Here<<<<-------------------
 
 app.get("/",(req,res)=>{
