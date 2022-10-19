@@ -29,3 +29,8 @@ module.exports.FindUserServices=async(userinfo)=>{
     return user;
 }
 // -------------->Login user-----------------
+// -------------->Get user info-----------------
+module.exports.getUserInfoServices=async(id)=>{
+    const user = await User.findById(id);
+    return user;
+}

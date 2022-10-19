@@ -1,5 +1,6 @@
 const { CreateJobServices, jobWithHrIdServices,jobWithIdServices,updatejobWithIdServices, getAllJobsServices,jobWithHrIdServicesinfo,findJobWithId,findUserWithId,saveAppliedCandidateInfoService,applyJobService} = require("../Services/job.services");
 const Job = require("../Models/job");
+const AppliedJob= require("../Models/AppliedJob");
 // ----------create job with hr id
 module.exports.CreateJobContoler=async(req,res)=>{
     try {
@@ -141,9 +142,7 @@ module.exports.applyJobControler = async (req, res) => {
     try {
         const candidate = req._id;
         const job = await findJobWithId(_id)
-        console.log(job);
         const user = await findUserWithId(candidate)
-        console.log(user);
         if(!job){
             return res.status(400).json({
                 status: 'fail',
@@ -154,6 +153,12 @@ module.exports.applyJobControler = async (req, res) => {
             return res.status(400).json({
                 status: 'fail',
                 message: 'User Not Found'
+            })
+        }
+        if(job.Vacancy <= 0){
+            return res.status(400).json({
+                status: 'fail',
+                message: 'No Vacancy available'
             })
         }
         const isApplied = await Job.findOne({
@@ -186,7 +191,8 @@ module.exports.applyJobControler = async (req, res) => {
               success: false,
               message: "Something went wrong.",
             });
-      
+            job.Vacancy = job.Vacancy - 1;
+            await job.save();
           res.status(202).send({
             success: true,
             message: "Applied Job successfully done.",

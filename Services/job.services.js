@@ -60,8 +60,8 @@ exports.applyJobService = async ({ jobId, candidate, infoId }) => {
   exports.saveAppliedCandidateInfoService = async (data, candidate, jobId) => {
     const result = await AppliedJob.create({
       ...data,
-      user: candidate,
-      job: jobId,
+      userId: candidate,
+      jobId: jobId,
     });
     return result;
   };
