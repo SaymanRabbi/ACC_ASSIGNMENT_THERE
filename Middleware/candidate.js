@@ -7,6 +7,7 @@ module.exports.verifyCandidate =async (req, res, next) => {
             message: "Unauthorized"
         })
     }
+    req._id = req.userData._id
     next();
   } catch (error) {
     res.status(401).send({

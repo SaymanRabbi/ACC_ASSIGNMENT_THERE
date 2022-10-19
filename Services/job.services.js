@@ -1,4 +1,6 @@
 const Job = require('../Models/job');
+const User = require('../Models/User');
+const AppliedJob = require("../Models/AppliedJob");
 module.exports.CreateJobServices=async(data)=>{
     const job = await Job.create(data);
     return job
@@ -34,3 +36,32 @@ module.exports.jobWithHrIdServicesinfo = async (id) => {
     return job
 }
 // ---------get job with hr info
+
+//=======apply jop controler
+
+module.exports.findJobWithId=async(id)=>{
+    const job = await Job.findById(id);
+    return job
+}
+module.exports.findUserWithId=async(id)=>{
+    const user = await User.findById(id);
+    return user
+}
+exports.applyJobService = async ({ jobId, candidate, infoId }) => {
+    await User.findByIdAndUpdate(candidate, { $push: { appliedJobs: jobId } });
+    const result = await Job.findByIdAndUpdate(
+      jobId,
+      { $push: { appliedCandidates: { candidate, candidateInfo: infoId } } },
+      { new: true }
+    );
+    return result;
+  };
+  
+  exports.saveAppliedCandidateInfoService = async (data, candidate, jobId) => {
+    const result = await AppliedJob.create({
+      ...data,
+      user: candidate,
+      job: jobId,
+    });
+    return result;
+  };

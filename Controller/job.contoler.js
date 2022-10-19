@@ -1,4 +1,5 @@
-const { CreateJobServices, jobWithHrIdServices,jobWithIdServices,updatejobWithIdServices, getAllJobsServices,jobWithHrIdServicesinfo} = require("../Services/job.services");
+const { CreateJobServices, jobWithHrIdServices,jobWithIdServices,updatejobWithIdServices, getAllJobsServices,jobWithHrIdServicesinfo,findJobWithId,findUserWithId} = require("../Services/job.services");
+const Job = require("../Models/job");
 // ----------create job with hr id
 module.exports.CreateJobContoler=async(req,res)=>{
     try {
@@ -128,7 +129,70 @@ module.exports.getJobWithHrInfo = async (req, res) => {
     }
 }
 // apply job 
-module.exports.applyJob = async (req, res) => {
+module.exports.applyJobControler = async (req, res) => {
     const {id} = req.params;
-    const {} = req.body
+    const {jobId,userId,resume,coverLetter} = req.body
+    if(!jobId || !userId || !resume || !coverLetter){
+        return res.status(400).json({
+            status: 'fail',
+            message: 'Please Provide all fields'
+        })
+    }
+    try {
+        const candidateId = req._id;
+        const job = await findJobWithId(id)
+        const user = await findUserWithId(candidateId)
+        if(!job){
+            return res.status(400).json({
+                status: 'fail',
+                message: 'Job Not Found'
+            })
+        }
+        if(!user){
+            return res.status(400).json({
+                status: 'fail',
+                message: 'User Not Found'
+            })
+        }
+        const isApplied = await Job.findOne({
+            $and: [{ _id }, { "appliedCandidates.candidate": candidate }],
+          });
+          if (isApplied)
+            return res.status(400).send({
+              success: false,
+              message: "You have already applied for this job.",
+});
+        if(job.deadLine < Date.now()){
+            return res.status(400).json({
+                status: 'fail',
+                message: 'Job Deadline is over'
+            })
+        }
+        const savedAppliedCandidateInfo = await saveAppliedCandidateInfoService(
+            req.body,
+            candidate,
+            _id
+          );
+          const applyJob = await applyJobService({
+            candidate,
+            jobId: _id,
+            infoId: savedAppliedCandidateInfo._id,
+          });
+      
+          if (!applyJob)
+            return res.status(400).send({
+              success: false,
+              message: "Something went wrong.",
+            });
+      
+          res.status(202).send({
+            success: true,
+            message: "Applied Job successfully done.",
+          });
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: error
+        })
+    }
 }

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const AppliedJobSchema = new mongoose.Schema({
-    jobid:{
+    jobId:{
         type:mongoose.Types.ObjectId,
         ref:"Job"
     },
