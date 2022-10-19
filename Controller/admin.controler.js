@@ -1,4 +1,4 @@
-const { getAllCandidate,candidateWithIdServices,gethiringmanagersServices } = require("../Services/admin.services")
+const { getAllCandidate,candidateWithIdServices,gethiringmanagersServices,getuserwithIdServices } = require("../Services/admin.services")
 
 module.exports.getAllCandidate = async (req, res) => {
     try {
@@ -44,6 +44,22 @@ module.exports.gethiringmanagers = async (req, res) => {
         res.status(500).send({
             status: false,
             message: "Not Get Any Hiring Managers"
+        })
+    }
+}
+module.exports.getuserwithId = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await getuserwithIdServices(id);
+        res.status(200).send({
+            status: true,
+            message: "changes role",
+            data: user
+        })
+    } catch (error) {
+        res.status(500).send({
+            status: false,
+            message: "Not Get Any user"
         })
     }
 }
