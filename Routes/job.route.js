@@ -1,9 +1,11 @@
 const express = require('express');
-const { CreateJobContoler,jobWithHrId,jobWithId,updatejobWithId,getAlljobs,getJobWithHrInfo,applyJobControler } = require('../Controller/job.contoler');
+const { CreateJobContoler,jobWithHrId,jobWithId,updatejobWithId,getAlljobs,getJobWithHrInfo,applyJobControler,getsalary } = require('../Controller/job.contoler');
 const { authorization } = require('../Middleware/authorization');
 const { verifyCandidate } = require('../Middleware/candidate');
 const router= express.Router();
 const verifyToken = require('../Middleware/verifyToken');
+//highest salary
+router.get("/salary",getsalary)
 // Importing the controller
 router.post('/',verifyToken,authorization('Hrmanager','admin'),CreateJobContoler)
 // --------get job with hrmanager id
