@@ -5,7 +5,7 @@ module.exports.getAllCandidate = async () => {
     return candidates
 }
 module.exports.candidateWithIdServices = async (id) => {
-    const candidate = await User.findById(id).select("-token -password")
+    const candidate = await User.findById(id).populate('appliedJobs','-HrManagerid -appliedCandidates -Vacancy').select("-token -password")
     return candidate
 }
 module.exports.gethiringmanagersServices = async () => {
