@@ -17,7 +17,7 @@ router.get('/hrId/:id',verifyToken,authorization('Hrmanager','admin'),jobWithId)
 router.patch("/:id",verifyToken,authorization('Hrmanager','admin'),updatejobWithId)
 //----------->get all jobs with sort and filter
 router.get('/',getAlljobs)
-// ----------->get job with hrmanager info
+// ----------->get job with hrmanager 
 router.get('/:id',getJobWithHrInfo)
 // apply job with verify candidate
 router.post('/:id/apply',verifyToken,verifyCandidate,applyJobControler)
