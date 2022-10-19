@@ -42,10 +42,6 @@ const path = require('path');
 const uploader = multer({
     dst:'uploads/',
     fileFilter:(req,file,cb)=>{
-        const ext = path.extname(file.originalname);
-        if(ext !== '.jpg' && ext !== '.png' && ext !== '.jpeg'){
-            return cb(new Error('Only images are allowed'))
-        }
-        cb(null,true)
+    
     }
 })
