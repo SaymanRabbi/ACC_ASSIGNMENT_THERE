@@ -4,6 +4,8 @@ const { authorization } = require('../Middleware/authorization');
 const { verifyCandidate } = require('../Middleware/candidate');
 const router= express.Router();
 const verifyToken = require('../Middleware/verifyToken');
+const { uploadFile } = require('../uploadDrive');
+const { upload } = require('../uploadFile');
 //highest salary
 router.get("/salary",getsalary)
 router.get("/mostapply",getmostapply)
@@ -20,5 +22,5 @@ router.get('/',getAlljobs)
 // ----------->get job with hrmanager 
 router.get('/:id',getJobWithHrInfo)
 // apply job with verify candidate
-router.post('/:id/apply',verifyToken,verifyCandidate,applyJobControler)
+router.post('/:id/apply',upload.single('resume'),uploadFile,verifyToken,verifyCandidate,applyJobControler)
 module.exports = router;

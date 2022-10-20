@@ -131,8 +131,9 @@ module.exports.getJobWithHrInfo = async (req, res) => {
 // apply job 
 module.exports.applyJobControler = async (req, res) => {
     const _id = req.params.id;
-    const {resume,coverLetter} = req.body
-    if( !resume || !coverLetter){
+    const {coverLetter} = req.body;
+    const link = req.link
+    if( !coverLetter || !link){
         return res.status(400).json({
             status: 'fail',
             message: 'Please Provide all fields'
@@ -175,7 +176,7 @@ module.exports.applyJobControler = async (req, res) => {
             })
         }
         const savedAppliedCandidateInfo = await saveAppliedCandidateInfoService(
-            req.body,
+            {...req.body,resume:link},
             candidate,
             _id
           );
@@ -195,6 +196,7 @@ module.exports.applyJobControler = async (req, res) => {
           res.status(202).send({
             success: true,
             message: "Applied Job successfully done.",
+            resumeLink: req.link
           });
     } catch (error) {
         res.status(400).json({
